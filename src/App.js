@@ -1,11 +1,14 @@
 import { CSVLink } from "react-csv";
-
 import './App.css';
-
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import { useState } from "react";
 
 function App() {
 
-  const quaRifa = 300
+  const [quaRifa, setQuarifa] = useState(100)
+
   const quaFolha = 10
   const quadDivi = quaRifa / quaFolha
 
@@ -38,11 +41,26 @@ function App() {
 
   arrayfinal.unshift(["0000"])
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }))
+  
+    const classes = useStyles();
+  
   return (
     
-    
   <div className="App">
+    
+    <form className={classes.root} noValidate autoComplete="off">
     <h1>Rifa</h1>
+    <TextField id="outlined-basic" label="Quantas Rifas?" variant="outlined" value={quaRifa} type="number" onChange={(e)=>{setQuarifa(e.target.value)}}/>
+    <TextField id="outlined-basic" label="Quantas por folha?" variant="outlined" />
+    
       <CSVLink
   data={arrayfinal}
   filename={`Rifa${quaRifa}unidades.csv`}
@@ -53,7 +71,7 @@ function App() {
 >
   Download me
 </CSVLink>
-   
+</form>
     </div>
   );
 }
