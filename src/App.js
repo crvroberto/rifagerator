@@ -4,6 +4,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {TextField, Button , } from '@material-ui/core';
 import { useState } from "react";
+import Logo from './logocopy.jpg'
 
 function App() {
 
@@ -85,7 +86,7 @@ function App() {
     <div className="App">
 
       <div className={classes.root} noValidate autoComplete="off">
-        <h1>Rifa - Copiadora Vieira</h1>
+        <img src={Logo} style={{height:70, width:70}} alt="Copiadora Vieira"></img>
         <TextField id="outlined-basic" label="Quantas Rifas?" variant="outlined" value={quaRifa} type="number" onChange={(e) => { setQuarifa(e.target.value) }} />
         <TextField id="outlined-basic" label="Quantas por folha?" variant="outlined" value={quaFolha} type="number" onChange={(e) => { setQuafolha(e.target.value) }} />
         <Button onClick={gerator} variant="contained" color="primary"> Gerar </Button >
