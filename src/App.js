@@ -16,6 +16,7 @@ function App() {
   const arrayfinal =[]
   const array = []
   const novoArray = []
+  const corte = []
 
   function gerator() {
 
@@ -28,32 +29,57 @@ function App() {
       array.push([str])
     }
 
+    const div = parseInt(quaRifa / quaFolha) 
 
-    for (var i = 0; i < array.length; i = i + quaRifa / quaFolha) {
-      novoArray.push(array.slice(i, i + quaRifa / quaFolha))
+    for (let i = 0; i < array.length; i = i + div) {
+
+      novoArray.push(array.slice(i, i + div))
+
     }
 
-
+    novoArray.forEach((vol)=>{  
+        if(vol.length < div){
+          novoArray.splice(novoArray.indexOf(vol), 1)
+          
+          corte.push(vol)
+          console.log(vol)
+        }
+    })
 
     function chama(val) {
-      novoArray.forEach((a) => {
-        arrayfinal.push(a[val])
 
+      
+      
+      novoArray.forEach((a) => {
+        
+    
+        
+        if(undefined !== a[val]){
+
+          arrayfinal.push(a[val])
+
+        }
+        
       })
     }
 
-    for (let i = 0; i < quaRifa / quaFolha; i++) { chama(i) }
+    for (let i = 0; i < div; i++) { chama(i) }
 
 
-    arrayfinal.unshift(["0000"])
+    arrayfinal.unshift(["inicio"])
+    if (corte.length > 0 ){
+      
+      
+      setDown(arrayfinal.concat(corte[0]))
+    }
+    else {
+      setDown(arrayfinal)
+    }
     
-    setDown(arrayfinal)
-
 
 
   }
 
-  console.log(down)
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -90,7 +116,7 @@ function App() {
         <TextField id="outlined-basic" label="Quantas Rifas?" variant="outlined" value={quaRifa} type="number" onChange={(e) => { setQuarifa(e.target.value) }} />
         <TextField id="outlined-basic" label="Quantas por folha?" variant="outlined" value={quaFolha} type="number" onChange={(e) => { setQuafolha(e.target.value) }} />
         <Button onClick={gerator} variant="contained" color="primary"> Gerar </Button >
-      
+        
       </div>
       
       {down.length > 1 ? <Download/> : <div></div>}
